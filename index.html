@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cruise Support Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Lora', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: #e8eff5;
+            color: #1a2a44;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1b3a6a, #5ab8e6);
+            color: #ffffff;
+            padding: 100px 0;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+            opacity: 0.5;
+        }
+
+        .header-logo {
+            width: 120px;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .header-logo:hover {
+            transform: scale(1.1);
+        }
+
+        header h1 {
+            font-size: 3.5em;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            text-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
+            animation: slideIn 1.2s ease-out;
+        }
+
+        header p {
+            font-size: 1.4em;
+            font-weight: 400;
+            opacity: 0.9;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+        }
+
+        .container {
+            display: flex;
+            max-width: 1600px;
+            margin: 60px auto;
+            padding: 0 50px;
+            gap: 50px;
+        }
+
+        .sidebar {
+            width: 340px;
+            background: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(14px);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12);
+            position: sticky;
+            top: 60px;
+            height: fit-content;
+            border: 2px solid rgba(255, 255, 255, 0.25);
+        }
+
+        .sidebar h2 {
+            font-size: 2.4em;
+            color: #1b3a6a;
+            margin-bottom: 35px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+        }
+
+        .sidebar h2 i {
+            font-size: 1.5em;
+            color: #5ab8e6;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar h2:hover i {
+            transform: rotate(30deg);
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar ul li {
+            margin: 18px 0;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #2d3748;
+            font-size: 1.25em;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 20px;
+            border-radius: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar ul li a:hover,
+        .sidebar ul li a.active {
+            background: linear-gradient(135deg, #5ab8e6, #2b6cb0);
+            color: #ffffff;
+            transform: translateX(10px);
+            box-shadow: 0 5px 14px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar ul li a img {
+            width: 34px;
+            height: 34px;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar ul li a:hover img {
+            transform: scale(1.2);
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 0 35px;
+        }
+
+        .cruise-section {
+            display: none;
+            background: #ffffff;
+            padding: 70px;
+            border-radius: 25px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12);
+            animation: fadeIn 0.7s ease-in;
+            border: 2px solid #e2e8f0;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .cruise-section:hover {
+            transform: translateY(-8px);
+        }
+
+        .cruise-section.active {
+            display: block;
+        }
+
+        .cruise-header {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #e2e8f0;
+        }
+
+        .cruise-logo {
+            width: 220px;
+            object-fit: contain;
+            padding: 25px;
+            transition: transform 0.3s ease;
+        }
+
+        .cruise-logo:hover {
+            transform: scale(1.08);
+        }
+
+        .cruise-title {
+            flex: 1;
+        }
+
+        .cruise-section h1 {
+            font-size: 3.2em;
+            color: #1b3a6a;
+            margin-bottom: 15px;
+            font-weight: 800;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+        }
+
+        .cruise-section .tagline {
+            font-size: 1.5em;
+            color: #4b5563;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .cruise-section h2 {
+            font-size: 2.3em;
+            margin: 50px 0 25px;
+            color: #1a2a44;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .cruise-section h2 i {
+            color: #5ab8e6;
+            font-size: 1.1em;
+            transition: transform 0.3s ease;
+        }
+
+        .cruise-section h2:hover i {
+            transform: rotate(20deg);
+        }
+
+        .cruise-section p {
+            margin-bottom: 30px;
+            font-size: 1.25em;
+            color: #4b5563;
+            line-height: 2;
+        }
+
+        .call-button {
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #5ab8e6, #1b3a6a);
+            color: #ffffff;
+            padding: 16px 32px;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.2em;
+            margin-top: 25px;
+            width: fit-content;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .call-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: 0.5s;
+        }
+
+        .call-button:hover::before {
+            left: 100%;
+        }
+
+        .call-button:hover {
+            background: linear-gradient(135deg, #2b6cb0, #5ab8e6);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
+        }
+
+        .call-button i {
+            margin-right: 14px;
+            font-size: 1.4em;
+        }
+
+        .contact-ring {
+            position: fixed;
+            right: 50px;
+            bottom: 50px;
+            background: linear-gradient(135deg, #5ab8e6, #1b3a6a);
+            color: #ffffff;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 1.1em;
+            font-weight: 800;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
+            z-index: 1000;
+            animation: ringPulse 2s infinite;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 4px solid transparent;
+            background-clip: padding-box;
+        }
+
+        .contact-ring::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            background: linear-gradient(45deg, #5ab8e6, #1b3a6a, #5ab8e6);
+            border-radius: 50%;
+            z-index: -1;
+            animation: ringSpin 7s linear infinite;
+        }
+
+        .contact-ring:hover {
+            transform: scale(1.15);
+            box-shadow: 0 14px 45px rgba(0, 0, 0, 0.3);
+        }
+
+        .contact-ring i {
+            font-size: 2em;
+        }
+
+        .contact-ring a {
+            color: #ffffff;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px;
+            background: linear-gradient(180deg, #ffffff, #e8eff5);
+            margin-top: 70px;
+            border-top: 2px solid #e2e8f0;
+            font-size: 1.1em;
+            color: #4b5563;
+        }
+
+        footer .social-icons {
+            margin-top: 25px;
+        }
+
+        footer .social-icons a {
+            color: #1b3a6a;
+            font-size: 1.6em;
+            margin: 0 18px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        footer .social-icons a:hover {
+            color: #5ab8e6;
+            transform: scale(1.25);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes ringPulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(90, 184, 230, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 25px rgba(90, 184, 230, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(90, 184, 230, 0); }
+        }
+
+        @keyframes ringSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                padding: 30px;
+            }
+
+            .sidebar {
+                width: 100%;
+                position: static;
+                margin-bottom: 60px;
+            }
+
+            .main-content {
+                padding: 0;
+            }
+
+            .contact-ring {
+                width: 70px;
+                height: 70px;
+                right: 25px;
+                bottom: 25px;
+            }
+
+            .contact-ring i {
+                font-size: 1.8em;
+            }
+
+            .cruise-section {
+                padding: 50px;
+            }
+
+            .cruise-header {
+                flex-direction: column;
+                gap: 30px;
+                align-items: flex-start;
+            }
+
+            .cruise-logo {
+                width: 180px;
+                height: 180px;
+            }
+
+            header {
+                padding: 80px 0;
+            }
+
+            .header-logo {
+                width: 100px;
+            }
+
+            header h1 {
+                font-size: 2.8em;
+            }
+
+            header p {
+                font-size: 1.2em;
+            }
+
+            .cruise-section h1 {
+                font-size: 2.6em;
+            }
+
+            .cruise-section h2 {
+                font-size: 2em;
+            }
+
+            .call-button {
+                font-size: 1.1em;
+                padding: 14px 28px;
+            }
+
+            footer .social-icons a {
+                font-size: 1.4em;
+                margin: 0 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+<i class="fas fa-ship"style="width:40px;">   </i>     <h1>Cruise Support Hub</h1>
+        <p>Your Trusted Partner for Seamless Cruise Adventures</p>
+    </header>
+
+    <div class="container">
+        <div class="sidebar">
+            <h2><i class="fas fa-ship"></i> Cruise Lines</h2>
+            <ul>
+                <li><a href="#carnival" class="active" onclick="showSection('carnival')">
+                    <img src="https://logos-world.net/wp-content/uploads/2024/01/Carnival-Cruise-Emblem.png" alt="Carnival">
+                    Carnival Cruise Line
+                </a></li>
+                <li><a href="#royal" onclick="showSection('royal')">
+                    <img src="https://logos-world.net/wp-content/uploads/2023/08/Royal-Caribbean-Logo.png" alt="Royal Caribbean">
+                    Royal Caribbean
+                </a></li>
+                <li><a href="#norwegian" onclick="showSection('norwegian')">
+                    <img src="https://images.seeklogo.com/logo-png/32/2/norwegian-cruise-line-logo-png_seeklogo-327626.png" alt="Norwegian">
+                    Norwegian Cruise Line
+                </a></li>
+                <li><a href="#princess" onclick="showSection('princess')">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/14/Princess_Cruises_logo.svg/250px-Princess_Cruises_logo.svg.png" alt="Princess">
+                    Princess Cruises
+                </a></li>
+                <li><a href="#msc" onclick="showSection('msc')">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/MSC_Cruises_Logo.png" alt="MSC">
+                    MSC Cruises
+                </a></li>
+                <li><a href="#holland" onclick="showSection('holland')">
+                    <img src="https://www.sovereigncruise.co.uk/blog/wp-content/uploads/2018/11/Holland-America-Line-Logo.png" alt="Holland America">
+                    Holland America Line
+                </a></li>
+                <li><a href="#celebrity" onclick="showSection('celebrity')">
+                    <img src="https://cdn.freebiesupply.com/logos/large/2x/celebrity-cruises-3-logo-svg-vector.svg" alt="Celebrity">
+                    Celebrity Cruises
+                </a></li>
+                <li><a href="#disney" onclick="showSection('disney')">
+                    <img src="https://static.wikia.nocookie.net/disney/images/1/1d/DLC_Upscaled.png/revision/latest/scale-to-width-down/1200?cb=20220528215634" alt="Disney">
+                    Disney Cruise Line
+                </a></li>
+                <li><a href="#viking" onclick="showSection('viking')">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/7/7f/Viking_Cruises_transparent_logo.svg" alt="Viking">
+                    Viking Cruises
+                </a></li>
+                <li><a href="#cunard" onclick="showSection('cunard')">
+                    <img src="https://www.imaginecruising.co.nz/wp-content/uploads/2023/07/Logo_Cunard_Horizontal_FC_CrestOnLeft_h7wxdw.png" alt="Cunard">
+                    Cunard Line
+                </a></li>
+            </ul>
+        </div>
+
+        <div class="main-content">
+            <div class="cruise-section active" id="carnival">
+                <div class="cruise-header">
+                    <img src="https://logos-world.net/wp-content/uploads/2024/01/Carnival-Cruise-Emblem.png" alt="Carnival Cruise Line Logo" class="cruise-logo">
+                    <div class="cruise-title">
+                        <h1>Carnival Cruise Line</h1>
+                        <p class="tagline">Fun for All, All for Fun</p>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-headset"></i> Unmatched Cruise Support</h2>
+                <p>Embark on a thrilling adventure with Carnival Cruise Line, where fun knows no bounds! Our 24/7 support team is your ultimate companion, assisting with everything from booking your dream cruise to crafting perfect shore excursions. Whether you're planning a vibrant family vacation or a romantic escape under the stars, we ensure every moment is seamless, exciting, and unforgettable.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Carnival Cruise Support</a>
+
+                <h2><i class="fas fa-shield"></i> Secure Booking, Always</h2>
+                <p>Your peace of mind is our top priority. Carnival Cruise Line uses cutting-edge encryption to safeguard your personal and payment details, ensuring every transaction is as secure as it is effortless. From the moment you book to the second you step aboard, your dream cruise is protected with unwavering commitment.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Cruise Support</a>
+
+                <h2><i class="fas fa-check-circle"></i> Swift Issue Resolution</h2>
+                <p>Hit a snag with your booking, itinerary, or billing? Our Resolution Center is your lifeline, designed to tackle any issue with lightning speed and precision. We keep your cruise plans sailing smoothly, so you can focus on the fun and adventure awaiting you.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Carnival Help Desk</a>
+
+                <h2><i class="fas fa-user-shield"></i> Proactive Fraud Protection</h2>
+                <p>With Carnival’s state-of-the-art fraud detection systems, your cruise plans are shielded from threats. Our real-time monitoring ensures every transaction is secure, letting you plan your adventure with complete confidence and zero worries.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Carnival Support</a>
+
+                <h2><i class="fas fa-globe-americas"></i> Trusted by Cruisers Worldwide</h2>
+                <p>Carnival Cruise Line is the global leader in fun-filled cruising, delighting millions with vibrant ships, exotic destinations, and unparalleled service. Our intuitive booking tools and world-class support make every journey a spectacular adventure you’ll cherish forever.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Carnival Cruise Support</a>
+            </div>
+
+            <div class="cruise-section" id="royal">
+                <div class="cruise-header">
+                    <img src="https://logos-world.net/wp-content/uploads/2023/08/Royal-Caribbean-Logo.png" alt="Royal Caribbean Logo" class="cruise-logo">
+                    <div class="cruise-title">
+                        <h1>Royal Caribbean</h1>
+                        <p class="tagline">Adventure Awaits</p>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-headset"></i> Support That Sails</h2>
+                <p>Dive into epic adventures with Royal Caribbean, where every journey is a masterpiece! Our 24/7 support team is ready to guide you through booking luxurious cabins, planning thrilling shore excursions, or answering any cruise questions. From adrenaline-pumping activities to serene escapes, we ensure your adventure is seamless and exhilarating.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Royal Caribbean Support</a>
+
+                <h2><i class="fas fa-shield"></i> Secure Cruise Booking</h2>
+                <p>Book with confidence, knowing Royal Caribbean’s advanced encryption protects your personal and payment information. Our robust security measures ensure every step of your booking process is safe, so you can focus on the excitement of your upcoming voyage.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Cruise Support</a>
+
+                <h2><i class="fas fa-check-circle"></i> Hassle-Free Resolutions</h2>
+                <p>Encountered a booking glitch or itinerary change? Our Resolution Center is your go-to for swift, stress-free solutions. We’re committed to keeping your cruise plans on course, so you can set sail without a hitch.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Royal Caribbean Help Desk</a>
+
+                <h2><i class="fas fa-user-shield"></i> Smart Fraud Detection</h2>
+                <p>Our cutting-edge systems monitor every transaction in real time, catching and preventing fraud before it impacts your plans. With Royal Caribbean, your cruise is protected, letting you focus on the adventure ahead.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Royal Caribbean Support</a>
+
+                <h2><i class="fas fa-globe-americas"></i> Epic Adventures Await</h2>
+                <p>Royal Caribbean redefines cruising with innovative ships, breathtaking destinations, and world-class service. From tropical paradises to icy fjords, we connect you to unforgettable experiences that spark adventure and wonder.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Royal Caribbean Support</a>
+            </div>
+
+            <div class="cruise-section" id="norwegian">
+                <div class="cruise-header">
+                    <img src="https://images.seeklogo.com/logo-png/32/2/norwegian-cruise-line-logo-png_seeklogo-327626.png" alt="Norwegian Cruise Line Logo" class="cruise-logo">
+                    <div class="cruise-title">
+                        <h1>Norwegian Cruise Line</h1>
+                        <p class="tagline">Freestyle Cruising</p>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-headset"></i> Support That Frees You</h2>
+                <p>Unleash your wanderlust with Norwegian Cruise Line’s Freestyle Cruising! Our 24/7 support team is here to make your journey effortless, assisting with bookings, dining reservations, and thrilling excursions. Sail your way with the freedom to create your perfect cruise adventure.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Norwegian Support</a>
+
+                <h2><i class="fas fa-shield"></i> Secure and Flexible Booking</h2>
+                <p>Book with ease and confidence, knowing Norwegian’s advanced security systems protect your data. Our robust encryption ensures every transaction is safe, letting you plan your dream cruise without worry.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Cruise Support</a>
+
+                <h2><i class="fas fa-check-circle"></i> Quick Resolutions</h2>
+                <p>From reservation hiccups to itinerary tweaks, our Resolution Center delivers fast, friendly solutions to keep your cruise plans sailing smoothly. Let us handle the details while you focus on the adventure.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Norwegian Help Desk</a>
+
+                <h2><i class="fas fa-user-shield"></i> Fraud-Free Cruising</h2>
+                <p>Our real-time fraud detection systems work tirelessly to protect your bookings, ensuring a secure and uninterrupted cruise experience. With Norwegian, your adventure is safe from start to finish.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Norwegian Support</a>
+
+                <h2><i class="fas fa-globe-americas"></i> Freedom to Explore</h2>
+                <p>Norwegian Cruise Line offers unparalleled flexibility, stunning destinations, and exceptional service. Whether you’re craving a Caribbean escape or an Alaskan adventure, we make every moment unforgettable.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Norwegian Support</a>
+            </div>
+
+            <div class="cruise-section" id="princess">
+                <div class="cruise-header">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/14/Princess_Cruises_logo.svg/250px-Princess_Cruises_logo.svg.png" alt="Princess Cruises Logo" class="cruise-logo">
+                    <div class="cruise-title">
+                        <h1>Princess Cruises</h1>
+                        <p class="tagline">Come Back New</p>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-headset"></i> Support That Transforms</h2>
+                <p>Embark on a transformative journey with Princess Cruises! Our 24/7 support team is dedicated to making your cruise seamless, from booking luxurious staterooms to planning unforgettable shore excursions. Let us guide you to a vacation that leaves you refreshed and inspired.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Princess Support</a>
+
+                <h2><i class="fas fa-shield"></i> Secure Booking Experience</h2>
+                <p>With Princess Cruises, your data is protected by top-tier encryption, ensuring every transaction is secure. Book your next adventure with confidence, knowing your journey is safeguarded from start to finish.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Cruise Support</a>
+
+                <h2><i class="fas fa-check-circle"></i> Effortless Resolutions</h2>
+                <p>Encounter a booking issue or need a quick fix? Our Resolution Center is here to provide swift, hassle-free solutions, keeping your cruise plans on track and stress-free.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Princess Help Desk</a>
+
+                <h2><i class="fas fa-user-shield"></i> Proactive Fraud Protection</h2>
+                <p>Our advanced systems monitor transactions in real time, preventing fraud and ensuring your cruise plans are secure. With Princess Cruises, you can focus on the journey ahead with peace of mind.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Princess Support</a>
+
+                <h2><i class="fas fa-globe-americas"></i> Discover New Horizons</h2>
+                <p>Princess Cruises invites you to explore breathtaking destinations with world-class service and elegant ships. From exotic ports to serene landscapes, every journey transforms you into a new version of yourself.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Princess Support</a>
+            </div>
+
+            <div class="cruise-section" id="msc">
+                <div class="cruise-header">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/MSC_Cruises_Logo.png" alt="MSC Cruises Logo" class="cruise-logo">
+                    <div class="cruise-title">
+                        <h1>MSC Cruises</h1>
+                        <p class="tagline">Sail in Style</p>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-headset"></i> Support That Shines</h2>
+                <p>Sail in unparalleled style with MSC Cruises! Our 24/7 support team is your guide to a luxurious cruise, assisting with bookings, dining reservations, and curated excursions. From glamorous evenings to exotic adventures, we ensure every moment sparkles with elegance.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call MSC Support</a>
+
+                <h2><i class="fas fa-shield"></i> Secure and Elegant Booking</h2>
+                <p>Book with confidence, knowing MSC Cruises’ advanced security systems protect your personal and payment details. Our seamless booking process ensures your journey is as stylish as it is secure.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Cruise Support</a>
+
+                <h2><i class="fas fa-check-circle"></i> Fast Issue Fixes</h2>
+                <p>From reservation challenges to itinerary adjustments, our Resolution Center delivers quick, elegant solutions to keep your cruise plans flawless. Let us handle the details while you savor the journey.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call MSC Help Desk</a>
+
+                <h2><i class="fas fa-user-shield"></i> Fraud-Free Cruising</h2>
+                <p>Our real-time fraud detection systems safeguard your bookings, ensuring a secure and uninterrupted cruise experience. With MSC Cruises, your adventure is protected from start to finish.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call MSC Support</a>
+
+                <h2><i class="fas fa-globe-americas"></i> Mediterranean Elegance</h2>
+                <p>MSC Cruises brings Mediterranean sophistication to the seas with luxurious ships and stunning destinations. From sun-soaked coasts to vibrant cities, every journey is a masterpiece of elegance and adventure.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call MSC Support</a>
+            </div>
+
+            <div class="cruise-section" id="holland">
+                <div class="cruise-header">
+                    <img src="https://www.sovereigncruise.co.uk/blog/wp-content/uploads/2018/11/Holland-America-Line-Logo.png" alt="Holland America Line Logo" class="cruise-logo">
+                    <div class="cruise-title">
+                        <h1>Holland America Line</h1>
+                        <p class="tagline">Timeless Cruising</p>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-headset"></i> Support That Endures</h2>
+                <p>Experience the timeless elegance of Holland America Line! Our 24/7 support team is dedicated to crafting your perfect cruise, from booking luxurious suites to planning enriching excursions. Sail with us for a journey that blends tradition with unforgettable moments.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Holland America Support</a>
+
+                <h2><i class="fas fa-shield"></i> Secure Booking Systems</h2>
+                <p>Your security is paramount. Holland America Line uses advanced encryption to protect your personal and payment information, ensuring a safe and seamless booking process for your dream cruise.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Cruise Support</a>
+
+                <h2><i class="fas fa-check-circle"></i> Quick Issue Fixes</h2>
+                <p>From itinerary changes to billing concerns, our Resolution Center offers fast, friendly solutions to keep your cruise plans smooth and stress-free. Let us handle the details while you enjoy the journey.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Holland America Help Desk</a>
+
+                <h2><i class="fas fa-user-shield"></i> Fraud Monitoring</h2>
+                <p>Our real-time fraud detection systems ensure your bookings are secure, protecting your cruise plans from any disruptions. Sail with Holland America Line with complete peace of mind.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Holland America Support</a>
+
+                <h2><i class="fas fa-globe-americas"></i> Classic Cruise Excellence</h2>
+                <p>Holland America Line delivers classic cruising with premium service, elegant ships, and breathtaking destinations. From serene fjords to vibrant ports, every journey is a timeless masterpiece.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Holland America Support</a>
+            </div>
+
+            <div class="cruise-section" id="celebrity">
+                <div class="cruise-header">
+                    <img src="https://cdn.freebiesupply.com/logos/large/2x/celebrity-cruises-3-logo-svg-vector.svg" alt="Celebrity Cruises Logo" class="cruise-logo">
+                    <div class="cruise-title">
+                        <h1>Celebrity Cruises</h1>
+                        <p class="tagline">Modern Luxury</p>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-headset"></i> Support That Elevates</h2>
+                <p>Elevate your vacation with Celebrity Cruises’ modern luxury! Our 24/7 support team is here to craft your perfect cruise, from booking stylish staterooms to planning gourmet dining and exclusive excursions. Sail with us for an experience that redefines sophistication.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Celebrity Support</a>
+
+                <h2><i class="fas fa-shield"></i> Secure and Luxurious Booking</h2>
+                <p>Book with confidence, knowing Celebrity Cruises’ advanced security systems protect your data. Our seamless booking process ensures your journey is as luxurious as it is secure.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Cruise Support</a>
+
+                <h2><i class="fas fa-check-circle"></i> Fast Issue Fixes</h2>
+                <p>From reservation challenges to itinerary adjustments, our Resolution Center delivers quick, elegant solutions to keep your cruise plans flawless. Let us handle the details while you savor the luxury.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Celebrity Help Desk</a>
+
+                <h2><i class="fas fa-user-shield"></i> Fraud-Free Cruising</h2>
+                <p>Our real-time fraud detection systems safeguard your bookings, ensuring a secure and uninterrupted cruise experience. With Celebrity Cruises, your adventure is protected from start to finish.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Celebrity Support</a>
+
+                <h2><i class="fas fa-globe-americas"></i> Luxury at Sea</h2>
+                <p>Celebrity Cruises redefines modern luxury with stunning ships, gourmet dining, and breathtaking destinations. From tropical escapes to cultural journeys, every moment is crafted for sophistication and wonder.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Celebrity Support</a>
+            </div>
+
+            <div class="cruise-section" id="disney">
+                <div class="cruise-header">
+                    <img src="https://static.wikia.nocookie.net/disney/images/1/1d/DLC_Upscaled.png/revision/latest/scale-to-width-down/1200?cb=20220528215634" alt="Disney Cruise Line Logo" class="cruise-logo">
+                    <div class="cruise-title">
+                        <h1>Disney Cruise Line</h1>
+                        <p class="tagline">Magical Adventures at Sea</p>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-headset"></i> Support That Sparks Magic</h2>
+                <p>Create unforgettable memories with Disney Cruise Line’s magical adventures! Our 24/7 support team is here to sprinkle magic on your journey, assisting with bookings, family activities, and enchanting excursions. Sail with us for a vacation filled with wonder and joy.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Disney Support</a>
+
+                <h2><i class="fas fa-shield"></i> Secure and Magical Booking</h2>
+                <p>Book with confidence, knowing Disney Cruise Line’s advanced security systems protect your data. Our seamless booking process ensures your magical adventure is safe from the first click to the final wave.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Cruise Support</a>
+
+                <h2><i class="fas fa-check-circle"></i> Effortless Resolutions</h2>
+                <p>Encounter a booking issue or need a quick fix? Our Resolution Center delivers swift, magical solutions to keep your cruise plans sparkling and stress-free.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Disney Help Desk</a>
+
+                <h2><i class="fas fa-user-shield"></i> Fraud-Free Cruising</h2>
+                <p>Our real-time fraud detection systems ensure your bookings are secure, protecting your magical cruise plans from any disruptions. With Disney Cruise Line, your adventure is safe and enchanting.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Disney Support</a>
+
+                <h2><i class="fas fa-globe-americas"></i> Family Magic at Sea</h2>
+                <p>Disney Cruise Line brings families together with enchanting ships, thrilling activities, and breathtaking destinations. From character meet-and-greets to exotic ports, every moment is pure magic.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Disney Support</a>
+            </div>
+
+            <div class="cruise-section" id="viking">
+                <div class="cruise-header">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/7/7f/Viking_Cruises_transparent_logo.svg" alt="Viking Cruises Logo" class="cruise-logo">
+                    <div class="cruise-title">
+                        <h1>Viking Cruises</h1>
+                        <p class="tagline">Explore the World in Comfort</p>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-headset"></i> Support That Explores</h2>
+                <p>Embark on a cultural odyssey with Viking Cruises! Our 24/7 support team is your guide to a comfortable and enriching journey, assisting with bookings, curated excursions, and cruise inquiries. Explore the world with us for an adventure steeped in history and elegance.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Viking Support</a>
+
+                <h2><i class="fas fa-shield"></i> Secure and Comfortable Booking</h2>
+                <p>Book with confidence, knowing Viking Cruises’ advanced security systems protect your data. Our seamless booking process ensures your journey is as comfortable as it is secure.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Cruise Support</a>
+
+                <h2><i class="fas fa-check-circle"></i> Fast Issue Fixes</h2>
+                <p>From reservation challenges to itinerary adjustments, our Resolution Center delivers quick, thoughtful solutions to keep your cruise plans flawless. Let us handle the details while you explore the world.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Viking Help Desk</a>
+
+                <h2><i class="fas fa-user-shield"></i> Fraud-Free Cruising</h2>
+                <p>Our real-time fraud detection systems safeguard your bookings, ensuring a secure and uninterrupted cruise experience. With Viking Cruises, your adventure is protected from start to finish.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Viking Support</a>
+
+                <h2><i class="fas fa-globe-americas"></i> Cultural Journeys</h2>
+                <p>Viking Cruises offers culturally rich journeys with comfortable ships and stunning destinations. From ancient cities to scenic rivers, every cruise is a deep dive into history and beauty.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Viking Support</a>
+            </div>
+
+            <div class="cruise-section" id="cunard">
+                <div class="cruise-header">
+                    <img src="https://www.imaginecruising.co.nz/wp-content/uploads/2023/07/Logo_Cunard_Horizontal_FC_CrestOnLeft_h7wxdw.png" alt="Cunard Line Logo" class="cruise-logo">
+                    <div class="cruise-title">
+                        <h1>Cunard Line</h1>
+                        <p class="tagline">Tradition Meets Luxury</p>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-headset"></i> Support That Defines Elegance</h2>
+                <p>Step into a world of timeless luxury with Cunard Line! Our 24/7 support team is dedicated to crafting your perfect cruise, from booking opulent staterooms to planning exquisite dining and exclusive excursions. Sail with us for an experience that blends tradition with unparalleled elegance.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Cunard Support</a>
+
+                <h2><i class="fas fa-shield"></i> Secure and Elegant Booking</h2>
+                <p>Book with confidence, knowing Cunard Line’s advanced security systems protect your data. Our seamless booking process ensures your journey is as elegant as it is secure.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Cruise Support</a>
+
+                <h2><i class="fas fa-check-circle"></i> Fast Issue Fixes</h2>
+                <p>From reservation challenges to itinerary adjustments, our Resolution Center delivers quick, elegant solutions to keep your cruise plans flawless. Let us handle the details while you savor the luxury.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Cunard Help Desk</a>
+
+                <h2><i class="fas fa-user-shield"></i> Fraud-Free Cruising</h2>
+                <p>Our real-time fraud detection systems safeguard your bookings, ensuring a secure and uninterrupted cruise experience. With Cunard Line, your adventure is protected from start to finish.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Cunard Support</a>
+
+                <h2><i class="fas fa-globe-americas"></i> Timeless Luxury</h2>
+                <p>Cunard Line delivers iconic luxury with majestic ships and breathtaking destinations. From transatlantic voyages to exotic ports, every journey is a celebration of tradition and sophistication.</p>
+                <a href="tel:+1-844-761-1710" class="call-button"><i class="fas fa-phone"></i> Call Cunard Support</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="contact-ring">
+        <a href="tel:+1-844-761-1710">
+            <i class="fas fa-phone"></i>
+        </a>
+    </div>
+
+    <footer>
+        <p>© 2025 Cruise Support Hub. All rights reserved. All brand names and logos are property of their respective owners.</p>
+        <div class="social-icons">
+            <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        function showSection(id) {
+            document.querySelectorAll('.cruise-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(id).classList.add('active');
+            document.querySelectorAll('.sidebar ul li a').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.querySelector(`.sidebar ul li a[href="#${id}"]`).classList.add('active');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            showSection('carnival');
+        });
+    </script>
+</body>
+</html>
