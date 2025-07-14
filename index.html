@@ -8,9 +8,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #005f8c;
-            --secondary: #00a1e0;
-            --accent: #ff7d00;
+            --primary: #0066cc; /* Brighter blue for vibrancy */
+            --secondary: #00b7eb; /* Lighter, more tropical blue */
+            --accent: #ff8c00; /* Vibrant orange for call buttons */
+            --accent-dark: #e67e00; /* Slightly darker for hover effects */
             --dark: #0a1a2e;
             --light: #f8f9fa;
             --text: #333333;
@@ -29,6 +30,10 @@
             color: var(--text);
             line-height: 1.6;
             overflow-x: hidden;
+            background-image: linear-gradient(rgba(0, 95, 140, 0.1), rgba(0, 95, 140, 0.1)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900"><defs><pattern id="ship-pattern" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse"><path d="M0,180L80,160C160,140,320,100,480,120C640,140,800,200,960,220C1120,240,1280,220,1440,200C1600,180,1600,160,1600,80V0H0V180Z" fill="rgba(0,161,224,0.1)"/><path d="M100,150L120,130C140,110,180,90,220,110C260,130,300,170,360,190C420,210,500,210,580,190C660,170,740,130,820,110C900,90,980,110,1060,130C1140,150,1220,170,1300,190C1380,210,1460,210,1500,200C1540,190,1580,170,1600,150V0H0V150Z" fill="rgba(255,255,255,0.2)"/></pattern></defs><rect width="1600" height="900" fill="url(#ship-pattern)"/><path d="M800,600L850,550C900,500,950,500,1000,550C1050,600,1100,700,1150,750C1200,800,1250,800,1300,750C1350,700,1400,600,1425,550L1450,500L800,600Z" fill="rgba(0,161,224,0.3)"/><circle cx="800" cy="400" r="50" fill="rgba(255,125,0,0.3)"/></svg>');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
         }
 
         h1, h2, h3 {
@@ -52,8 +57,8 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 100px;
-            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%23e8eff5" opacity=".25"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" fill="%23e8eff5" opacity=".5"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%23e8eff5"/></svg>');
+            height: 120px; /* Increased wave height */
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%23e8eff5" opacity=".3"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" fill="%23e8eff5" opacity=".6"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%23e8eff5"/></svg>');
             background-size: cover;
         }
 
@@ -73,30 +78,31 @@
         }
 
         .logo-icon {
-            font-size: 3rem;
+            font-size: 3.2rem;
             margin-right: 20px;
             color: var(--accent);
-            text-shadow: 0 0 15px rgba(255,125,0,0.5);
+            text-shadow: 0 0 20px rgba(255,125,0,0.6);
+            animation: float 3s ease-in-out infinite;
         }
 
         .logo-text {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: 800;
-            letter-spacing: 2px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            letter-spacing: 2.5px;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.4);
         }
 
         header h1 {
-            font-size: 3.5rem;
+            font-size: 3.8rem;
             margin-bottom: 20px;
-            line-height: 1.2;
+            line-height: 1.3;
         }
 
         header p {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             max-width: 800px;
             margin: 0 auto;
-            opacity: 0.9;
+            opacity: 0.95;
         }
 
         /* Main Container */
@@ -124,7 +130,7 @@
         }
 
         .sidebar h2 {
-            font-size: 1.8rem;
+            font-size: 1.9rem;
             color: var(--primary);
             margin-bottom: 30px;
             padding-bottom: 15px;
@@ -136,7 +142,7 @@
         .sidebar h2 i {
             margin-right: 15px;
             color: var(--accent);
-            font-size: 1.5rem;
+            font-size: 1.6rem;
         }
 
         .cruise-list {
@@ -221,12 +227,12 @@
         }
 
         .cruise-title h1 {
-            font-size: 2.5rem;
+            font-size: 2.6rem;
             margin-bottom: 10px;
         }
 
         .cruise-title .tagline {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             opacity: 0.9;
             font-weight: 400;
         }
@@ -236,7 +242,7 @@
         }
 
         .cruise-section h2 {
-            font-size: 1.8rem;
+            font-size: 1.9rem;
             color: var(--primary);
             margin: 40px 0 20px;
             padding-bottom: 10px;
@@ -248,11 +254,11 @@
         .cruise-section h2 i {
             margin-right: 15px;
             color: var(--accent);
-            font-size: 1.5rem;
+            font-size: 1.6rem;
         }
 
         .cruise-section p {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             line-height: 1.8;
             color: var(--text);
             margin-bottom: 25px;
@@ -261,28 +267,30 @@
         .call-button {
             display: inline-flex;
             align-items: center;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
             color: white;
-            padding: 15px 30px;
+            padding: 18px 35px;
             border-radius: 50px;
             text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
+            font-weight: 700;
+            font-size: 1.2rem;
             margin-top: 10px;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 20px rgba(0,95,140,0.2);
+            box-shadow: 0 12px 25px rgba(255,140,0,0.3);
             position: relative;
             overflow: hidden;
+            animation: pulse 2s ease-in-out infinite;
         }
 
         .call-button i {
-            margin-right: 10px;
-            font-size: 1.2rem;
+            margin-right: 12px;
+            font-size: 1.3rem;
         }
 
         .call-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(0,95,140,0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 18px 35px rgba(255,140,0,0.4);
+            background: linear-gradient(135deg, var(--accent-dark), var(--accent));
         }
 
         .call-button::after {
@@ -292,7 +300,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            background: linear-gradient(135deg, var(--accent), #ffaa33);
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -315,26 +323,27 @@
         }
 
         .contact-button {
-            width: 70px;
-            height: 70px;
+            width: 75px;
+            height: 75px;
             border-radius: 50%;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            box-shadow: 0 10px 30px rgba(0,95,140,0.3);
+            font-size: 1.6rem;
+            box-shadow: 0 12px 30px rgba(0,95,140,0.3);
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
             border: none;
+            animation: pulse 2s ease-in-out infinite;
         }
 
         .contact-button:hover {
-            transform: scale(1.1) rotate(10deg);
-            box-shadow: 0 15px 40px rgba(0,95,140,0.4);
+            transform: scale(1.15) rotate(15deg);
+            box-shadow: 0 18px 40px rgba(0,95,140,0.4);
         }
 
         .contact-button::before {
@@ -362,7 +371,7 @@
             top: 50%;
             transform: translateY(-50%);
             background: white;
-            padding: 10px 20px;
+            padding: 12px 24px;
             border-radius: 50px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
             font-weight: 600;
@@ -395,7 +404,7 @@
         }
 
         .footer-logo {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 800;
             margin-bottom: 20px;
             display: inline-block;
@@ -409,7 +418,7 @@
         .footer-text {
             max-width: 700px;
             margin: 0 auto 30px;
-            opacity: 0.8;
+            opacity: 0.85;
             line-height: 1.6;
         }
 
@@ -455,6 +464,12 @@
             100% { transform: translateY(0px); }
         }
 
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
         /* Responsive Styles */
         @media (max-width: 1200px) {
             .container {
@@ -485,15 +500,15 @@
             }
             
             header h1 {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
             }
             
             header p {
-                font-size: 1.1rem;
+                font-size: 1.2rem;
             }
             
             .logo-text {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             
             .cruise-header {
@@ -506,11 +521,16 @@
             }
             
             .cruise-title h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             
             .cruise-body {
                 padding: 30px;
+            }
+            
+            .call-button {
+                padding: 15px 30px;
+                font-size: 1.1rem;
             }
             
             .contact-float {
@@ -521,7 +541,7 @@
             .contact-button {
                 width: 60px;
                 height: 60px;
-                font-size: 1.3rem;
+                font-size: 1.4rem;
             }
         }
     </style>
