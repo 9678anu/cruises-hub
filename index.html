@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no, viewport-fit=cover">
     <title>Why Choose a Cruise? | Oceanic Voyages</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
@@ -148,7 +148,7 @@
             flex-wrap: wrap;
         }
 
-        .cta-button, .call-support-button {
+        .call-support-button {
             display: inline-flex;
             align-items: center;
             background: var(--accent);
@@ -165,21 +165,21 @@
             animation: bounceIn 1.5s ease-out;
         }
 
-        .cta-button:hover, .call-support-button:hover {
+        .call-support-button:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(255, 126, 0, 0.5);
             background: var(--accent-dark);
         }
 
-        .cta-button i, .call-support-button i {
+        .call-support-button i {
             margin-right: 8px;
         }
 
         /* Call Support Button (for sections) */
         .call-support-button {
-            padding:20px;
+            padding: 10px 20px;
             font-size: 0.95rem;
-            margin:auto;
+            margin: 15px auto;
             display: inline-flex;
         }
 
@@ -188,8 +188,11 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            z-index: 10000; /* Increased z-index */
+            padding-right: env(safe-area-inset-right);
+            padding-bottom: env(safe-area-inset-bottom);
+            z-index: 10000;
             animation: float 3s ease-in-out infinite;
+            touch-action: manipulation;
         }
 
         .floating-call a {
@@ -492,7 +495,7 @@
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 25px;
             margin-top: 30px;
-            position: relative;
+            positionाइन: relative;
             z-index: 1;
         }
 
@@ -756,8 +759,8 @@
 
         @media (max-width: 768px) {
             header {
-                height: 60vh;
-                min-height: 400px;
+                height: 50vh;
+                min-height: 320px;
             }
             .logo-text {
                 font-size: 1.8rem;
@@ -779,8 +782,8 @@
 
         @media (max-width: 576px) {
             header {
-                height: 60vh;
-                min-height: 350px;
+                height: 50vh;
+                min-height: 320px;
             }
             .logo {
                 flex-direction: column;
@@ -800,7 +803,7 @@
             header p {
                 font-size: 1rem;
             }
-            .cta-button, .call-support-button {
+            .call-support-button {
                 padding: 8px 15px;
                 font-size: 0.85rem;
             }
@@ -809,14 +812,16 @@
                 font-size: 0.85rem;
             }
             .floating-call {
-                bottom: 10px;
-                right: 10px;
+                bottom: 15px;
+                right: 15px;
+                padding-right: env(safe-area-inset-right);
+                padding-bottom: env(safe-area-inset-bottom);
                 z-index: 10000;
             }
             .floating-call a {
-                width: 40px;
-                height: 40px;
-                font-size: 1.1rem;
+                width: 45px;
+                height: 45px;
+                font-size: 1.2rem;
                 box-shadow: 0 3px 10px rgba(255, 126, 0, 0.4);
             }
             .container {
@@ -835,18 +840,24 @@
 
         /* Ultra-small screens */
         @media (max-width: 360px) {
+            header {
+                height: 45vh;
+                min-height: 300px;
+            }
             .floating-call {
-                bottom: 8px;
-                right: 8px;
+                bottom: 10px;
+                right: 10px;
+                padding-right: env(safe-area-inset-right);
+                padding-bottom: env(safe-area-inset-bottom);
                 z-index: 10000;
             }
             .floating-call a {
-                width: 36px;
-                height: 36px;
-                font-size: 1rem;
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
                 box-shadow: 0 2px 8px rgba(255, 126, 0, 0.4);
             }
-            .cta-button, .call-support-button {
+            .call-support-button {
                 padding: 7px 12px;
                 font-size: 0.8rem;
             }
@@ -880,7 +891,6 @@
             <p>Experience the perfect blend of luxury, adventure, and relaxation as you explore the world's most breathtaking destinations.</p>
             <div class="header-buttons">
                 <a href="tel:+1-808-203-9071" class="call-support-button"><i class="fas fa-phone"></i> Call Cruises Support Now</a>
-                <a href="#explore" class="cta-button"><i class="fas fa-compass"></i> Explore Cruises</a>
             </div>
         </div>
         <div class="header-slider">
@@ -1156,7 +1166,7 @@
             <div class="container">
                 <h2>Ready for Your Dream Vacation?</h2>
                 <p>Let our cruise specialists help you find the perfect voyage tailored to your interests and budget.</p>
-                <a href="#contact" class="cta-button"><i class="fas fa-compass"></i> Contact Us</a>
+                <a href="#contact" class="call-support-button"><i class="fas fa-phone"></i> Contact Us</a>
             </div>
         </section>
     </main>
@@ -1208,7 +1218,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2025 Oceanic Voyages. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> | Last updated: July 16, 2025, 01:18 AM IST</p>
+                <p>© 2025 Oceanic Voyages. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> | Last updated: July 16, 2025, 01:25 AM IST</p>
             </div>
         </div>
     </footer>
