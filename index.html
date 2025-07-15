@@ -52,8 +52,8 @@
         /* Header Styles with Slider and Transparent Overlay */
         header {
             position: relative;
-            height: 90vh;
-            min-height: 500px;
+            height: 80vh;
+            min-height: 450px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
@@ -177,9 +177,9 @@
 
         /* Call Support Button (for sections) */
         .call-support-button {
-            padding: 10px 20px;
+            padding:20px;
             font-size: 0.95rem;
-            margin: 15px auto;
+            margin:auto;
             display: inline-flex;
         }
 
@@ -188,7 +188,7 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            z-index: 1000;
+            z-index: 10000; /* Increased z-index */
             animation: float 3s ease-in-out infinite;
         }
 
@@ -779,7 +779,7 @@
 
         @media (max-width: 576px) {
             header {
-                height: 70vh;
+                height: 60vh;
                 min-height: 350px;
             }
             .logo {
@@ -809,13 +809,13 @@
                 font-size: 0.85rem;
             }
             .floating-call {
-                bottom: 15px;
-                right: 15px;
-                z-index: 1000;
+                bottom: 10px;
+                right: 10px;
+                z-index: 10000;
             }
             .floating-call a {
-                width: 45px;
-                height: 45px;
+                width: 40px;
+                height: 40px;
                 font-size: 1.1rem;
                 box-shadow: 0 3px 10px rgba(255, 126, 0, 0.4);
             }
@@ -833,20 +833,37 @@
             }
         }
 
-        /* Ensure visibility on very small screens */
+        /* Ultra-small screens */
         @media (max-width: 360px) {
             .floating-call {
-                bottom: 10px;
-                right: 10px;
+                bottom: 8px;
+                right: 8px;
+                z-index: 10000;
             }
             .floating-call a {
-                width: 40px;
-                height: 40px;
+                width: 36px;
+                height: 36px;
                 font-size: 1rem;
+                box-shadow: 0 2px 8px rgba(255, 126, 0, 0.4);
             }
             .cta-button, .call-support-button {
                 padding: 7px 12px;
                 font-size: 0.8rem;
+            }
+            header h1 {
+                font-size: 1.6rem;
+            }
+            header p {
+                font-size: 0.9rem;
+            }
+            .container {
+                padding: 0 8px;
+            }
+            .section {
+                padding: 30px 0;
+            }
+            .section-title h2 {
+                font-size: 1.6rem;
             }
         }
     </style>
@@ -863,6 +880,7 @@
             <p>Experience the perfect blend of luxury, adventure, and relaxation as you explore the world's most breathtaking destinations.</p>
             <div class="header-buttons">
                 <a href="tel:+1-808-203-9071" class="call-support-button"><i class="fas fa-phone"></i> Call Cruises Support Now</a>
+                <a href="#explore" class="cta-button"><i class="fas fa-compass"></i> Explore Cruises</a>
             </div>
         </div>
         <div class="header-slider">
@@ -1190,7 +1208,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2025 Oceanic Voyages. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> | Last updated: July 16, 2025, 01:10 AM IST</p>
+                <p>© 2025 Oceanic Voyages. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> | Last updated: July 16, 2025, 01:18 AM IST</p>
             </div>
         </div>
     </footer>
