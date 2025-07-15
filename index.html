@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -142,7 +141,14 @@
             animation: fadeIn 1.5s ease-out;
         }
 
-        .cta-button {
+        .header-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .cta-button, .call-support-button {
             display: inline-flex;
             align-items: center;
             background: var(--accent);
@@ -159,14 +165,64 @@
             animation: bounceIn 1.5s ease-out;
         }
 
-        .cta-button:hover {
+        .cta-button:hover, .call-support-button:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(255, 126, 0, 0.5);
             background: var(--accent-dark);
         }
 
-        .cta-button i {
+        .cta-button i, .call-support-button i {
             margin-right: 10px;
+        }
+
+        /* Call Support Button (for sections) */
+        .call-support-button {
+            padding:20px;
+            font-size: 0.95rem;
+            margin: auto;
+            display: inline-flex;
+        }
+
+        /* Floating Call Button */
+        .floating-call a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 126, 0, 0.4);
+        }
+
+        .floating-call {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .floating-call a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 126, 0, 0.5);
+            background: var(--accent-dark);
+        }
+
+        /* Ensure sections and footer don't overlap floating button */
+        section, footer {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Centered button container */
+        .call-button-container {
+            text-align: center;
+            margin: 20px 0;
         }
 
         /* Main Content Sections */
@@ -551,35 +607,6 @@
             text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
         }
 
-        /* Floating Call Button */
-        .floating-call {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 100;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .floating-call a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: var(--accent);
-            color: white;
-            font-size: 1.5rem;
-            box-shadow: 0 5px 15px rgba(255, 126, 0, 0.5);
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .floating-call a:hover {
-            transform: scale(1.1);
-            background: var(--accent-dark);
-        }
-
         /* Footer */
         footer {
             background: var(--dark);
@@ -721,6 +748,10 @@
             .benefits-container {
                 grid-template-columns: 1fr;
             }
+            .header-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -771,6 +802,10 @@
                 height: 50px;
                 font-size: 1.2rem;
             }
+            .cta-button, .call-support-button {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
@@ -784,7 +819,10 @@
             </div>
             <h1>Discover the Joy of Cruise Travel</h1>
             <p>Experience the perfect blend of luxury, adventure, and relaxation as you explore the world's most breathtaking destinations.</p>
-            <a href="#explore" class="cta-button"><i class="fas fa-compass"></i> Explore Cruises</a>
+            <div class="header-buttons">
+                <a href="tel:+1-808-203-9071" class="call-support-button"><i class="fas fa-phone"></i> Call Cruises Support Now</a>
+                <a href="#explore" class="cta-button"><i class="fas fa-compass"></i> Explore Cruises</a>
+            </div>
         </div>
         <div class="header-slider">
             <img src="https://media.istockphoto.com/id/155375632/photo/tropical-paradise.jpg?s=612x612&w=0&k=20&c=pkKzP9C7hmjiplWWz_8fZf2NlwXIi9sn9GKY85QiQV8=" alt="Luxury Cruise Ship" class="active">
@@ -1059,7 +1097,7 @@
             <div class="container">
                 <h2>Ready for Your Dream Vacation?</h2>
                 <p>Let our cruise specialists help you find the perfect voyage tailored to your interests and budget.</p>
-                <a href="tel:+1-808-203-9071" class="cta-button"><i class="fas fa-phone"></i> Call to Book Now</a>
+                <a href="#contact" class="cta-button"><i class="fas fa-compass"></i> Contact Us</a>
             </div>
         </section>
     </main>
@@ -1089,7 +1127,7 @@
                         <li><a href="#explore">Destinations</a></li>
                         <li><a href="#">Special Offers</a></li>
                         <li><a href="#">About Us</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -1102,16 +1140,16 @@
                         <li><a href="#">Theme Cruises</a></li>
                     </ul>
                 </div>
-                <div class="footer-column">
+                <div class="footer-column" id="contact">
                     <h3>Contact Us</h3>
                     <p><i class="fas fa-map-marker-alt"></i> 123 Ocean Avenue, Miami, FL 33139</p>
-                    <p><i class="fas fa-phone"></i> +1 (800) 555-1234</p>
+                    <p><i class="fas fa-phone"></i> +1-808-203-9071</p>
                     <p><i class="fas fa-envelope"></i> info@oceanicvoyages.com</p>
-                    <p><i class="fas fa-clock"></i> Mon-Fri: 9AM-9PM EST</p>
+                    <p><i the="fas fa-clock"></i> Mon-Fri: 9AM-9PM EST</p>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2025 Oceanic Voyages. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> | Last updated: July 15, 2025, 11:24 PM IST</p>
+                <p>© 2025 Oceanic Voyages. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> | Last updated: July 16, 2025, 01:06 AM IST</p>
             </div>
         </div>
     </footer>
@@ -1128,7 +1166,7 @@
                 images[currentImage].classList.add('active');
             }
 
-            setInterval(nextImage, 5000); // Change image every 5 seconds
+            setInterval(nextImage, 8000); // 8-second interval for slider
 
             // Tab functionality for cruise types
             const tabs = document.querySelectorAll('.type-tab');
@@ -1156,6 +1194,32 @@
                     }
                 });
             });
+
+            // Add centered "Call Cruises Support Now" button before Cruise Types section
+            const cruiseTypesSection = document.querySelector('#explore');
+            if (cruiseTypesSection) {
+                const callButtonContainer = document.createElement('div');
+                callButtonContainer.className = 'call-button-container';
+                const callButton = document.createElement('a');
+                callButton.href = 'tel:+1-808-203-9071';
+                callButton.className = 'call-support-button';
+                callButton.innerHTML = '<i class="fas fa-phone"></i> Call Cruises Support Now';
+                callButtonContainer.appendChild(callButton);
+                cruiseTypesSection.insertAdjacentElement('beforebegin', callButtonContainer);
+            }
+
+            // Add centered "Call Cruises Support Now" button before Testimonials section
+            const testimonialsSection = document.querySelector('.testimonials');
+            if (testimonialsSection) {
+                const callButtonContainer = document.createElement('div');
+                callButtonContainer.className = 'call-button-container';
+                const callButton = document.createElement('a');
+                callButton.href = 'tel:+1-808-203-9071';
+                callButton.className = 'call-support-button';
+                callButton.innerHTML = '<i class="fas fa-phone"></i> Call Cruises Support Now';
+                callButtonContainer.appendChild(callButton);
+                testimonialsSection.insertAdjacentElement('beforebegin', callButtonContainer);
+            }
         });
     </script>
 </body>
